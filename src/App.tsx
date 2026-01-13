@@ -17,20 +17,20 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  none,
-  name,
-  length,
+  None,
+  Alphabetically,
+  Length,
 }
 
 export const App = () => {
-  const [sortField, setSortField] = useState<SortType>(SortType.none);
+  const [sortField, setSortField] = useState<SortType>(SortType.None);
   const [reversed, setReversed] = useState(false);
 
   let visibleGoods = [...goodsFromServer].sort((good1, good2) => {
     switch (sortField) {
-      case SortType.name:
+      case SortType.Alphabetically:
         return good1.localeCompare(good2);
-      case SortType.length:
+      case SortType.Length:
         return good1.length - good2.length;
       default:
         return 0;
@@ -47,18 +47,18 @@ export const App = () => {
         <button
           type="button"
           className={cn('button', 'is-info', {
-            'is-light': sortField !== SortType.name,
+            'is-light': sortField !== SortType.Alphabetically,
           })}
-          onClick={() => setSortField(SortType.name)}
+          onClick={() => setSortField(SortType.Alphabetically)}
         >
           Sort alphabetically
         </button>
         <button
           type="button"
           className={cn('button', 'is-success', {
-            'is-light': sortField !== SortType.length,
+            'is-light': sortField !== SortType.Length,
           })}
-          onClick={() => setSortField(SortType.length)}
+          onClick={() => setSortField(SortType.Length)}
         >
           Sort by length
         </button>
@@ -77,7 +77,7 @@ export const App = () => {
             className="button is-danger is-light"
             onClick={() => {
               setReversed(false);
-              setSortField(SortType.none);
+              setSortField(SortType.None);
             }}
           >
             Reset
